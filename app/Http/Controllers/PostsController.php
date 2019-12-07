@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Storage;
+use App\Http\Controllers\Controller;
 
 class PostsController extends Controller
 {
@@ -29,14 +31,29 @@ class PostsController extends Controller
             'image' => 'required',
             'country' => 'required',
         ]);
+        
+        if ($request->has('image')){
+        
+        #formから送信されたimageファイルを読み込む
+        $file = $request->file('image');
+        
+        #s3に追加
+        $path = Storage::disk('s3')->putFile('/', $file, 'public');
+        #画像のURLを参照
+        $url = Storage::disk('s3')->url($path);
+        
 
         $request->user()->posts()->create([
             'content' => $request->content,
-            'image' => $request->image,
+            'image' => $path,
             'country' => $request->country
         ]);
-
+        
         return back();
+            
+        }
+        
+        
     }
     
     public function destroy($id)
