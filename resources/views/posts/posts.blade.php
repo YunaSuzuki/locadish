@@ -7,7 +7,8 @@
                     {!! link_to_route('users.show', $post->user->name, ['id' => $post->user->id]) !!} <span class="text-muted">posted at {{ $post->created_at }}</span>
                 </div>
                 <div>
-                    <p class="mb-0 contents">{!! nl2br(e($post->content)) !!}</p>
+                    <p class="mb-0">{!! nl2br(e($post->content)) !!}</p>
+                    <p class="mb-0">{!! nl2br(e($post->country)) !!}</p>
                     <img src="{{ Storage::disk('s3')->url($post->image) }}" class="mb-0 image-size"></img>
                 </div>
                 <div>

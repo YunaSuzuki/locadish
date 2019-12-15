@@ -7,10 +7,7 @@
         </aside>
         <div class="col-sm-8">
             @include('users.navtabs', ['user' => $user])
-            @include('commons.form')
-            @if (count($posts) > 0)
-                @include('posts.posts', ['posts' => $posts])
-            @endif
+            @include('users.users', ['users' => $users])
         </div>
     </div>
 @endsection
